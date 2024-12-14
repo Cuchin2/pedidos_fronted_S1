@@ -1,9 +1,6 @@
 <template>
     <div>
         <div class="min-h-screen bg-gray-100">
-
-
-
             <!-- Page Content -->
             <main class="max-w-7xl mx-auto px-6 md:px-0">
                 <RouterView />
