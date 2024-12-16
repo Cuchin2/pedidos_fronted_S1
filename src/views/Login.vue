@@ -21,9 +21,24 @@
                 </div>
 
                 <div class="floating-input">
-                    <input id="password" v-model="password" type="password" required placeholder=" "
+                    <input id="password" v-model="password" :type="showPassword ? 'text' : 'password'" required
+                        placeholder=" "
                         class="mt-1 block w-full px-3 bg-gray-50 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-gray-900">
                     <label for="password" class="floating-label">Password</label>
+                    <div @click="togglePassword" class="eye-icon text-gray-400">
+                        <svg v-if="showPassword" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                        <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+                        </svg>
+                    </div>
                 </div>
 
                 <div class="flex items-center justify-between">
@@ -91,41 +106,55 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
+// Define types
+interface LoginData {
+    email: string
+    password: string
+    remember: boolean
+}
+
 const email = ref<string>('')
 const password = ref<string>('')
 const remember = ref<boolean>(false)
 const isLoading = ref<boolean>(false)
 const errorMessage = ref<string>('')
+const showPassword = ref<boolean>(false)
+
+const togglePassword = (): void => {
+    showPassword.value = !showPassword.value
+}
 
 const handleLogin = async (): Promise<void> => {
     isLoading.value = true
     errorMessage.value = ''
 
     try {
-        // Simulate API call
-        await new Promise<void>(resolve => setTimeout(resolve, 2000))
+        // Simulate API call delay
+        await new Promise<void>((resolve) => setTimeout(resolve, 2000))
 
-        console.log('Login attempt:', {
+        const loginData: LoginData = {
             email: email.value,
             password: password.value,
-            remember: remember.value
-        })
+            remember: remember.value,
+        }
 
-        // Here you would typically make an API call to your backend
-        if (email.value !== 'demo@example.com' || password.value !== 'password') {
+        console.log('Login attempt:', loginData)
+
+        // Mock authentication logic
+        if (loginData.email !== 'demo@example.com' || loginData.password !== 'password') {
             throw new Error('Invalid email or password')
         }
 
         // Redirect on success
         window.location.href = 'https://example.com/dashboard'
-
     } catch (error: unknown) {
         if (error instanceof Error) {
             errorMessage.value = error.message
+            console.error('Login failed:', error)
         } else {
             errorMessage.value = 'An unknown error occurred'
+            console.error('Unknown error:', error)
         }
-        console.error('Login failed:', error)
     } finally {
         isLoading.value = false
     }
@@ -189,5 +218,18 @@ const handleLogin = async (): Promise<void> => {
 .btn-primary:hover {
     transform: translateY(-1px);
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.eye-icon {
+    cursor: pointer;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9CA3AF;
+}
+
+.eye-icon:hover {
+    color: #3B82F6;
 }
 </style>
