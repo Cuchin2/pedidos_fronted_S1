@@ -59,7 +59,7 @@
 
             <!-- Dropdown Cart -->
             <div class="fixed inset-0 bg-black bg-opacity-50 transition-opacity" @click="cartOpen=false" :class="{ '': cartOpen, 'hidden': !cartOpen }"></div>
-            <div v-if="cartOpen" class="absolute right-0 mt-3 w-96 bg-white rounded-lg shadow-xl cart-dropdown">
+            <div v-if="cartOpen" class="absolute right-0 mt-3 sm:w-96 w-[320px] bg-white rounded-lg shadow-xl ">
                 <div class="p-4">
                     <div class="flex justify-between items-center mb-4">
                         <h2 class="text-xl font-bold">Carrito de Compras</h2>
@@ -324,7 +324,7 @@
                     </div>
 
                     <!-- Pagination buttons -->
-                    <div class="flex items-center gap-2">
+                    <div class="flex items-center gap-2 scale-[85%] sm:scale-[100%]">
                         <button @click="changePage(currentPage - 1)" :disabled="currentPage === 1"
                             class="sm:px-3 px-2 py-1 rounded-lg border hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed">
                             <p class="hidden md:block">Anterior</p>
@@ -386,12 +386,12 @@
         </div>
 
         <!-- Product Modal -->
-        <div v-if="showModal" class="fixed inset-0 z-50 overflow-y-auto" role="dialog">
+        <div v-if="showModal" class="fixed inset-0 z-50 overflow-y-auto " role="dialog">
             <!-- Backdrop -->
             <div class="fixed inset-0 bg-black bg-opacity-50 transition-opacity" @click="closeModal"></div>
 
             <!-- Modal -->
-            <div class="relative min-h-screen flex items-center justify-center p-4" >
+            <div class="relative min-h-screen flex items-center justify-center p-4 sm:scale-[100%] scale-[80%]" >
                 <div v-click-away="closeModal"
                     class="relative bg-white rounded-lg max-w-2xl w-full overflow-hidden shadow-xl transform transition-all">
                     <!-- Close button -->
@@ -414,7 +414,7 @@
 
                             <!-- Product Details -->
                             <div class="w-full md:w-1/2">
-                                <h2 class="text-2xl font-bold mb-2">{{ selectedProduct.name }}</h2>
+                                <h2 class="sm:text-2xl text-xl font-bold mb-2">{{ selectedProduct.name }}</h2>
                                 <p class="text-gray-600 mb-4">{{ selectedProduct.category }}</p>
                                 <p class="text-3xl font-bold text-blue-600 mb-4">S/. {{ selectedProduct.price.toFixed(2)
                                     }}</p>
