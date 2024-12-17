@@ -21,7 +21,7 @@
                             d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
                 </div>
-                <div class="ml-auto mr-12">
+                <div class="ml-auto">
                     <button @click.stop="handleCartClick"
                         class="relative cart-button p-3 rounded-full shadow-lg hover:shadow-xl transition-shadow">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none"
@@ -130,7 +130,7 @@
 
             <!-- Wishlist Dropdown -->
             <div class="fixed inset-0 bg-black bg-opacity-50 transition-opacity" @click="wishlistOpen=false" :class="{ '': wishlistOpen, 'hidden': !wishlistOpen }"></div>
-            <div v-if="wishlistOpen" class="absolute right-0 mt-3 w-96 bg-white rounded-lg shadow-xl cart-dropdown">
+            <div v-if="wishlistOpen" class="absolute right-0 mt-3 sm:w-96 w-[320px] bg-white rounded-lg shadow-xl">
                 <div class="p-4">
                     <div class="flex justify-between items-center mb-4">
                         <h2 class="text-xl font-bold">Lista de Deseos</h2>
@@ -326,8 +326,12 @@
                     <!-- Pagination buttons -->
                     <div class="flex items-center gap-2">
                         <button @click="changePage(currentPage - 1)" :disabled="currentPage === 1"
-                            class="px-3 py-1 rounded-lg border hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed">
-                            Anterior
+                            class="sm:px-3 px-2 py-1 rounded-lg border hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed">
+                            <p class="hidden md:block">Anterior</p>
+                            <svg class="block md:hidden" xmlns="http://www.w3.org/2000/svg" width="18" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              <polyline points="15 18 9 12 15 6"></polyline>
+                            </svg>
+                        
                         </button>
 
                         <div class="flex items-center gap-1">
@@ -338,7 +342,7 @@
                             </button>
 
                             <!-- Dots before current page if needed -->
-                            <span v-if="showLeftDots" class="px-2">...</span>
+                            <span v-if="showLeftDots" class="px-2">..</span>
 
                             <!-- Page before current -->
                             <button v-if="showPreviousPage" @click="changePage(currentPage - 1)"
@@ -359,7 +363,7 @@
                             </button>
 
                             <!-- Dots after current page if needed -->
-                            <span v-if="showRightDots" class="px-2">...</span>
+                            <span v-if="showRightDots" class="px-2">..</span>
 
                             <!-- Last page -->
                             <button v-if="totalPages > 1" @click="changePage(totalPages)"
@@ -370,8 +374,11 @@
                         </div>
 
                         <button @click="changePage(currentPage + 1)" :disabled="currentPage === totalPages"
-                            class="px-3 py-1 rounded-lg border hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed">
-                            Siguiente
+                            class="sm:px-3 px-2 py-1 rounded-lg border hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed">
+                            <p class="hidden md:block">Siguiente</p>
+                            <svg class="block md:hidden" xmlns="http://www.w3.org/2000/svg" width="18" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
                         </button>
                     </div>
                 </div>
